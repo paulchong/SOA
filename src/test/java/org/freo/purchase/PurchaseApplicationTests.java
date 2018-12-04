@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 @SpringBootTest(classes = PurchaseApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 public class PurchaseApplicationTests {
 
-	private static final String BASEURL = "http://localhost:8000";
+	private static final String BASEURL = "http://localhost:8080";
 
 	@Test public void testPOST_Level1() {
     
