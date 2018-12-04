@@ -1,0 +1,21 @@
+# supports version 2 of the docker compose language. Requires docker compose 1.6 or later
+version: '2'
+
+#define the services (e.g. containers) we need
+services:
+  # the Java container is our POResourceMS app, whose dockerfile is in the current directory
+  java:
+    # build the Dockerfile
+    build: .
+    # expose port 8080 as port 80
+    ports:
+     - "80:8080"
+    # we require access to the redis service
+    links:
+     - "redis:redis"
+    # depends on redis
+    depends_on:
+     - redis
+  # the redis service is just redis!
+  redis:
+    image: redis:3.2.8-alpine
