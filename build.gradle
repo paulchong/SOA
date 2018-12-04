@@ -25,8 +25,14 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	// exclude Tomcat
+	compile.exclude module: 'spring-boot-starter-tomcat'
+}
+
 
 dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-undertow')
 	implementation('org.springframework.boot:spring-boot-starter-jersey')
 	implementation('org.json:json:20160212')
 	implementation('redis.clients:jedis:2.9.0')
