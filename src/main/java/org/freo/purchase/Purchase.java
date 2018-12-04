@@ -108,6 +108,7 @@ public class Purchase {
 			
 	}
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllOrders()
 	{
 		String allOrders = backend.getOrders();
