@@ -1,5 +1,7 @@
 package org.freo.purchase;
 
+import java.io.IOException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,7 +26,7 @@ import org.springframework.stereotype.Component;
 public class Purchase {
 
 	OrderRedis backend = new OrderRedis();
-	
+	// Publish publisher = new Publish();
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -35,8 +37,12 @@ public class Purchase {
 		String orderId = null;
 		try {
 			orderId = backend.createOrder(input);
+			// publisher.publish(input);
 		} catch (JSONException je) {
 			success = false;
+		}
+		catch (Exception ie) {
+			ie.printStackTrace();
 		}
 
 		if (success) {

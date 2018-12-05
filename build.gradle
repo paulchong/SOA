@@ -36,6 +36,7 @@ dependencies {
 	implementation('redis.clients:jedis:2.9.0')
 	implementation('io.swagger.core.v3:swagger-jaxrs2:2.0.6')
 	implementation('io.swagger.core.v3:swagger-jaxrs2-servlet-initializer:2.0.6')
+	implementation('com.rabbitmq:amqp-client:5.5.1')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	
 }
