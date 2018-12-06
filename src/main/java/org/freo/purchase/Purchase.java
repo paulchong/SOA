@@ -63,9 +63,6 @@ public class Purchase {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	public Response updateOrder(String input, @PathParam("id") String id) {
-
-
-
 		try {
 			backend.updateOrder(id, input);
 			// return the server's representation
