@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 
+
 @Configuration
 @ApplicationPath("/")
 public class PurchaseConfiguration extends ResourceConfig {

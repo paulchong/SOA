@@ -20,9 +20,15 @@ import javax.ws.rs.core.UriInfo;
 
 import org.json.JSONException;
 import org.springframework.stereotype.Component;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 
 @Component
 @Path("/purchase")
+@OpenAPIDefinition (info = @Info (
+	title = "PurchaseAPI", version = "0.0.2"
+))
+
 public class Purchase {
 
 	OrderRedis backend = new OrderRedis();
