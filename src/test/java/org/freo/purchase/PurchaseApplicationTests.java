@@ -2,9 +2,11 @@ package org.freo.purchase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,22 +26,31 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PurchaseApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 public class PurchaseApplicationTests {
 
+	ClientConfig config = new ClientConfig();
+
+
 	private static final String BASEURL = "http://localhost:8080";
 
+	//private static final String PROXY_URI = "http://localhost:8000";
+    private static final String PROXY_URI = null;
+
 	@Test public void testPOST_Level1() {
-    
-    	// TEST 1. 
+	
+		// TEST 1. 
     	// POST a valid JSON with the right elements to http://localhost:8080/purchase
     	// Response code is 201
     	// expect a header Location: url
-    	// expect a JSON response with matching values
-    	
+		// expect a JSON response with matching values
+		
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target(BASEURL).
     			path("purchase");
     	
@@ -79,15 +90,17 @@ public class PurchaseApplicationTests {
 	
 	@Test public void testPOST_Level2() {
     
+    
     	// TEST 1. 
     	// POST a valid JSON with the right elements to http://localhost:8080/purchase
     	// Response code is 201
     	// expect a header Location: url
     	// don't check any more
     	// use the Location for the further tests
-    	
+    	if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target(BASEURL).
     			path("purchase");
     	
@@ -113,9 +126,11 @@ public class PurchaseApplicationTests {
     
     @Test public void TestGets_Level2() {
     	// Test get the order
-    	// Need to post an order first
+		// Need to post an order first
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target(BASEURL).
     			path("purchase");
     	
@@ -134,7 +149,7 @@ public class PurchaseApplicationTests {
     			.post(Entity.entity(jsonText,MediaType.APPLICATION_JSON));
     	
     	String location = response.getHeaderString("Location");
-    	target = ClientBuilder.newClient().target(location);
+    	target = ClientBuilder.newClient(config).target(location);
     	response = target.request(MediaType.APPLICATION_JSON).get();
     	assertEquals(Response.Status.OK.getStatusCode(), response.getStatus()); // 200
     	assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
@@ -144,16 +159,18 @@ public class PurchaseApplicationTests {
 	    assertEquals("FREO0073", jsonResponse.get("poNumber"));
 	    	
     	// TEST GET failure
-    	target = ClientBuilder.newClient().target("http://localhost:8080/purchase/blah");
+    	target = ClientBuilder.newClient(config).target("http://localhost:8080/purchase/blah");
     	response = target.request(MediaType.APPLICATION_JSON).get();
     	assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus()); // 404
     		
     }
     
     @Test public void TestPut_Level2() {
-    	// Need to post an order first
+		// Need to post an order first
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target(BASEURL).
     			path("purchase");
     	
@@ -174,7 +191,7 @@ public class PurchaseApplicationTests {
     	String location = response.getHeaderString("Location");
     	
     	// GET existing value and then update with new
-    	target = ClientBuilder.newClient().target(location);
+    	target = ClientBuilder.newClient(config).target(location);
     	response = target.request(MediaType.APPLICATION_JSON).get();
     	assertEquals(Response.Status.OK.getStatusCode(), response.getStatus()); // 200
     	assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
@@ -208,8 +225,10 @@ public class PurchaseApplicationTests {
     
 	@Test 
 	public void TestDelete_Level2() {
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target(BASEURL).
     			path("purchase");
     	
@@ -229,7 +248,7 @@ public class PurchaseApplicationTests {
     	
     	String location = response.getHeaderString("Location");
     	
-       	target = ClientBuilder.newClient().target(location);
+       	target = ClientBuilder.newClient(config).target(location);
     	
     	// DELETE 
     	response = target.request().delete();
@@ -242,7 +261,7 @@ public class PurchaseApplicationTests {
     
     	// Test Deleting resource that doesn't exist
     	target = ClientBuilder.
-    			newClient().
+    			newClient(config).
     			target("http://localhost:8080/purchase/blah");
     	response = target.request().delete();
     	assertEquals( Response.Status.NOT_FOUND.getStatusCode(), response.getStatus()); // 404
@@ -253,7 +272,9 @@ public class PurchaseApplicationTests {
 	public void testGET_Level3() {
 
 		// start by creating a new entry
-		WebTarget target = ClientBuilder.newClient().target(BASEURL).path("purchase");
+		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
+		config.connectorProvider(new ApacheConnectorProvider());
+    	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("purchase");
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerNumber", "00002");
@@ -281,7 +302,7 @@ public class PurchaseApplicationTests {
 		for (Object o : orders) {
 			JSONObject order = (JSONObject) o;
 			String href = order.getString("href");
-			target = ClientBuilder.newClient().target(BASEURL).path("purchase").path(href);
+			target = ClientBuilder.newClient(config).target(BASEURL).path("purchase").path(href);
 			response = target.request(MediaType.APPLICATION_JSON).get();
 			assertEquals(Status.OK.getStatusCode(), response.getStatus());
 

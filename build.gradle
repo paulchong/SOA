@@ -31,6 +31,7 @@ configurations {
 
 dependencies {
 	// implementation('org.springframework.boot:spring-boot-starter-undertow')
+	implementation('org.glassfish.jersey.connectors:jersey-apache-connector')
 	implementation('org.springframework.boot:spring-boot-starter-jersey')
 	implementation('org.json:json:20160212')
 	implementation('redis.clients:jedis:2.9.0')
