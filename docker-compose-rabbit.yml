@@ -1,5 +1,5 @@
 # supports version 2 of the docker compose language. Requires docker compose 1.6 or later
-version: '2'
+version: '2.1'
 
 #define the services (e.g. containers) we need
 services:
@@ -9,32 +9,31 @@ services:
     build: .
     # expose port 8080 as port 80
     environment:
-#     - RABBIT_HOST=rabbitmq
+     - RABBIT_HOST=rabbitmq
      - REDIS_HOST=redis
     ports:
      - "80:8080"
     # we require access to the redis service
     links:
       - "redis:redis"
-#      - "rabbitmq:rabbitmq"
+      - "rabbitmq:rabbitmq"
     depends_on:
       redis:
         condition: service_started
-#      rabbitmq:
-#        condition: service_healthy 
+      rabbitmq:
+        condition: service_healthy 
 
   redis:
     image: redis:3.2.8-alpine
-#  uncomment following lines to enable rabbitmq
-#  rabbitmq:
-#    image: rabbitmq:latest
-#    ports:
-#      - "5672:5672"
-#    healthcheck:
-#      timeout: 5s
-#      interval: 5s
-#      retries: 5
-#      test:
-#        - "CMD"
-#        - "rabbitmqctl"
-#        - "node_health_check"
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+    healthcheck:
+      timeout: 5s
+      interval: 5s
+      retries: 5
+      test:
+        - "CMD"
+        - "rabbitmqctl"
+        - "node_health_check"
