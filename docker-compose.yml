@@ -16,25 +16,7 @@ services:
     # we require access to the redis service
     links:
       - "redis:redis"
-#      - "rabbitmq:rabbitmq"
     depends_on:
-      redis:
-        condition: service_started
-#      rabbitmq:
-#        condition: service_healthy 
-
+      - redis       
   redis:
     image: redis:3.2.8-alpine
-#  uncomment following lines to enable rabbitmq
-#  rabbitmq:
-#    image: rabbitmq:latest
-#    ports:
-#      - "5672:5672"
-#    healthcheck:
-#      timeout: 5s
-#      interval: 5s
-#      retries: 5
-#      test:
-#        - "CMD"
-#        - "rabbitmqctl"
-#        - "node_health_check"
