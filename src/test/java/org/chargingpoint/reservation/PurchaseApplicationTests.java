@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

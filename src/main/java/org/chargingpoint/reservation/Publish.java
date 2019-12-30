@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

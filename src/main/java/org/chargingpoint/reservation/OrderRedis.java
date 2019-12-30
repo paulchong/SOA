@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 import java.util.Iterator;
 import java.util.LinkedList;

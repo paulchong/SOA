@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 public class NotFoundException extends Exception {
 

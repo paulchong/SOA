@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 import org.json.JSONException;
 import org.json.JSONObject;

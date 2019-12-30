@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 import javax.annotation.PostConstruct;
 import javax.ws.rs.ApplicationPath;

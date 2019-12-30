@@ -1,4 +1,4 @@
-package org.freo.purchase;
+package org.chargingpoint.reservation;
 
 public class OrderEntry {
 	private long orderTime = 0L;
