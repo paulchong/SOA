@@ -26,7 +26,7 @@ public class OrderRedis {
 	 */
 	public OrderRedis() {
 
-		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'poNumber':'PO1'," + "'lineItem':'11111',"
+		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'chargingPointID':'123abc'," + "'lineItem':'11111',"
 				+ "'quantity':'1'," + "'date':'24/7/2012'," + "'customerNumber':'1', paymentReference:''}"));
 		entry.setComplete();
 		this.putOrderToRedis(oneuuid, entry);

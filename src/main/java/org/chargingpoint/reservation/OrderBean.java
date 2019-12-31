@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class OrderBean {
-	private String poNumber;
+	private String chargingPointID;
 	private String lineItem;
 	private String quantity;
 	private String date;
@@ -14,12 +14,12 @@ public class OrderBean {
 
 	
 	
-	public String getPoNumber() {
-		return poNumber;
+	public String getChargingPointID() {
+		return chargingPointID;
 	}
 
-	public void setPoNumber(String poNumber) {
-		this.poNumber = poNumber;
+	public void setChargingPointID(String chargingPointID) {
+		this.chargingPointID = chargingPointID;
 	}
 
 	public String getLineItem() {
@@ -64,7 +64,7 @@ public class OrderBean {
 			this.setCustomerNumber( j.getString("customerNumber"));
 			this.setDate(j.getString("date"));
 			this.setQuantity(j.getString("quantity"));
-			this.setPoNumber(j.getString("poNumber"));
+			this.setChargingPointID(j.getString("chargingPointID"));
 			this.setLineItem(j.getString("lineItem"));
 			
 		
@@ -77,7 +77,7 @@ public class OrderBean {
 			j.put("lineItem", this.getLineItem());
 			j.put("quantity", this.getQuantity());
 			j.put("date", this.getDate());
-			j.put("poNumber", this.getPoNumber());
+			j.put("chargingPointID", this.getChargingPointID());
 			j.put("paymentReference", this.getPaymentReference());
 			return j;
 		} catch (JSONException je) {
