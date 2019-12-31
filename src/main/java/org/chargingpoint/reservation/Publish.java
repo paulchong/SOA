@@ -5,7 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 public class Publish {
-    private final static String QUEUE_NAME = "purchase";
+    private final static String QUEUE_NAME = "reservation";
     private static ConnectionFactory factory;
     private static Connection conn;
     private static Channel channel;

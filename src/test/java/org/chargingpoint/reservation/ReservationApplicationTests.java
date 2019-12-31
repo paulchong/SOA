@@ -28,8 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PurchaseApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-public class PurchaseApplicationTests {
+@SpringBootTest(classes = ReservationApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+public class ReservationApplicationTests {
 
 	ClientConfig config = new ClientConfig();
 
