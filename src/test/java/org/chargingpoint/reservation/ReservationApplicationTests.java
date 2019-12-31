@@ -36,8 +36,8 @@ public class ReservationApplicationTests {
 
 	private static final String BASEURL = "http://localhost:8080";
 
-	//private static final String PROXY_URI = "http://localhost:8000";
-    private static final String PROXY_URI = null;
+	private static final String PROXY_URI = "http://localhost:8001";
+    //private static final String PROXY_URI = null;
 
 	@Test public void testPOST_Level1() {
 	
