@@ -14,7 +14,7 @@ public class PurchaseConfiguration extends ResourceConfig {
 
 	@PostConstruct
 	public void setUp() {
-		register(Purchase.class);
+		register(Reservation.class);
 		register(OpenApiResource.class);
 	}
 }

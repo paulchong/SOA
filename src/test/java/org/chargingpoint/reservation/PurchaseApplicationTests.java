@@ -42,7 +42,7 @@ public class PurchaseApplicationTests {
 	@Test public void testPOST_Level1() {
 	
 		// TEST 1. 
-    	// POST a valid JSON with the right elements to http://localhost:8080/purchase
+    	// POST a valid JSON with the right elements to http://localhost:8080/reservation
     	// Response code is 201
     	// expect a header Location: url
 		// expect a JSON response with matching values
@@ -52,7 +52,7 @@ public class PurchaseApplicationTests {
     	WebTarget target = ClientBuilder.
     			newClient(config).
     			target(BASEURL).
-    			path("purchase");
+    			path("reservation");
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
@@ -79,7 +79,7 @@ public class PurchaseApplicationTests {
     	
     
     	// test JSON failure
-    	// POST an invalid JSON  to http://localhost:8080/purchase
+    	// POST an invalid JSON  to http://localhost:8080/reservation
     	// Response is an HTTP Error 400 (Bad Request)
     	response = target.request(MediaType.APPLICATION_JSON)
     			.post(Entity.entity("bad input",MediaType.APPLICATION_JSON));
@@ -92,7 +92,7 @@ public class PurchaseApplicationTests {
     
     
     	// TEST 1. 
-    	// POST a valid JSON with the right elements to http://localhost:8080/purchase
+    	// POST a valid JSON with the right elements to http://localhost:8080/reservation
     	// Response code is 201
     	// expect a header Location: url
     	// don't check any more
@@ -102,7 +102,7 @@ public class PurchaseApplicationTests {
     	WebTarget target = ClientBuilder.
     			newClient(config).
     			target(BASEURL).
-    			path("purchase");
+    			path("reservation");
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
@@ -132,7 +132,7 @@ public class PurchaseApplicationTests {
     	WebTarget target = ClientBuilder.
     			newClient(config).
     			target(BASEURL).
-    			path("purchase");
+    			path("reservation");
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
@@ -159,7 +159,7 @@ public class PurchaseApplicationTests {
 	    assertEquals("FREO0073", jsonResponse.get("poNumber"));
 	    	
     	// TEST GET failure
-    	target = ClientBuilder.newClient(config).target("http://localhost:8080/purchase/blah");
+    	target = ClientBuilder.newClient(config).target("http://localhost:8080/reservation/blah");
     	response = target.request(MediaType.APPLICATION_JSON).get();
     	assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus()); // 404
     		
@@ -172,7 +172,7 @@ public class PurchaseApplicationTests {
     	WebTarget target = ClientBuilder.
     			newClient(config).
     			target(BASEURL).
-    			path("purchase");
+    			path("reservation");
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
@@ -230,7 +230,7 @@ public class PurchaseApplicationTests {
     	WebTarget target = ClientBuilder.
     			newClient(config).
     			target(BASEURL).
-    			path("purchase");
+    			path("reservation");
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
@@ -262,7 +262,7 @@ public class PurchaseApplicationTests {
     	// Test Deleting resource that doesn't exist
     	target = ClientBuilder.
     			newClient(config).
-    			target("http://localhost:8080/purchase/blah");
+    			target("http://localhost:8080/reservation/blah");
     	response = target.request().delete();
     	assertEquals( Response.Status.NOT_FOUND.getStatusCode(), response.getStatus()); // 404
     
@@ -274,7 +274,7 @@ public class PurchaseApplicationTests {
 		// start by creating a new entry
 		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
-    	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("purchase");
+    	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("reservation");
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerNumber", "00002");
@@ -302,7 +302,7 @@ public class PurchaseApplicationTests {
 		for (Object o : orders) {
 			JSONObject order = (JSONObject) o;
 			String href = order.getString("href");
-			target = ClientBuilder.newClient(config).target(BASEURL).path("purchase").path(href);
+			target = ClientBuilder.newClient(config).target(BASEURL).path("reservation").path(href);
 			response = target.request(MediaType.APPLICATION_JSON).get();
 			assertEquals(Status.OK.getStatusCode(), response.getStatus());
 

@@ -24,12 +24,12 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 
 @Component
-@Path("/purchase")
+@Path("/reservation")
 @OpenAPIDefinition (info = @Info (
-	title = "PurchaseAPI", version = "0.0.2"
+	title = "ReservationAPI", version = "0.0.1"
 ))
 
-public class Purchase {
+public class Reservation {
 
 	OrderRedis backend = new OrderRedis();
 	// Publish publisher = new Publish();
