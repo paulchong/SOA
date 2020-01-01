@@ -56,7 +56,7 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerID","00002");
+    	map.put("customerID","00001");
 		map.put("startTimeDate","02/01/2020 10:30:00 AM");
 		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
@@ -139,7 +139,7 @@ public class ReservationApplicationTests {
     			path("reservation");
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerID","00002");
+    	map.put("customerID","00003");
 		map.put("startTimeDate","02/01/2020 10:30:00 AM");
 		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
@@ -181,7 +181,7 @@ public class ReservationApplicationTests {
     			path("reservation");
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerID","00002");
+    	map.put("customerID","00004");
 		map.put("startTimeDate","02/01/2020 10:30:00 AM");
 		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
@@ -241,7 +241,7 @@ public class ReservationApplicationTests {
     			path("reservation");
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerID","00002");
+    	map.put("customerID","00005");
 		map.put("startTimeDate","02/01/2020 10:30:00 AM");
 		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
@@ -287,7 +287,7 @@ public class ReservationApplicationTests {
     	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("reservation");
 
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("customerID", "00002");
+		map.put("customerID", "00006");
 		map.put("startTimeDate", "02/01/2020 10:30:00 AM");
 		map.put("endTimeDate","02/01/2020 11:00:00 AM");
 		map.put("carID", "CR123x94");
@@ -295,7 +295,7 @@ public class ReservationApplicationTests {
 		map.put("chargingPointID", "20200101");
 		map.put("customerFirstName","Alexander");
 		map.put("customerLastName","Hamilton");
-		
+
 		JSONObject json = new JSONObject(map);
 		String jsonText = json.toString();
 
