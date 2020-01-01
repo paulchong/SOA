@@ -129,8 +129,8 @@ public class ReservationApplicationTests {
     }
     
     @Test public void TestGets_Level2() {
-    	// Test get the order
-		// Need to post an order first
+    	// Test get the booking
+		// Need to post a booking first
 		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
@@ -172,7 +172,7 @@ public class ReservationApplicationTests {
     }
     
     @Test public void TestPut_Level2() {
-		// Need to post an order first
+		// Need to post a booking first
 		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.
@@ -311,11 +311,11 @@ public class ReservationApplicationTests {
 		// and see we get a 200 for each.
 		json = new JSONObject(response.readEntity(String.class));
 
-		JSONArray orders = (JSONArray) json.get("orders");
+		JSONArray bookings = (JSONArray) json.get("bookings");
 
-		for (Object o : orders) {
-			JSONObject order = (JSONObject) o;
-			String href = order.getString("href");
+		for (Object o : bookings) {
+			JSONObject booking = (JSONObject) o;
+			String href = booking.getString("href");
 			target = ClientBuilder.newClient(config).target(BASEURL).path("reservation").path(href);
 			response = target.request(MediaType.APPLICATION_JSON).get();
 			assertEquals(Status.OK.getStatusCode(), response.getStatus());

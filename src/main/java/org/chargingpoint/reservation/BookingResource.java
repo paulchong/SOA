@@ -22,7 +22,7 @@ public class BookingResource {
 	public static String oneuuid = UUID.randomUUID().toString();
 
 	/*
-	 * Instantiate the system with a new random order
+	 * Instantiate the system with a new random booking
 	 */
 	public BookingResource() {
 
@@ -30,57 +30,57 @@ public class BookingResource {
 				+ "'duration':'30'," + "'startTimeDate':'21/12/2019 01:30:00 PM'," + "'customerID':'1',"
 				+ "'customerFirstName':'Charlie'," + "'customerLastName':'Rose'," + "'endTimeDate':'21/12/2019 02:00:00 PM'}"));
 		entry.setComplete();
-		this.putOrderToRedis(oneuuid, entry);
+		this.putBookingToRedis(oneuuid, entry);
 	}
 
 	/*
 	 * This method will throw a JSONException if there is a problem with the
-	 * JSON otherwise it will create an order and return a new UUID
+	 * JSON otherwise it will create a booking and return a new UUID
 	 */
-	public String createOrder(String order) {
+	public String createBooking(String booking) {
 		String uuid = UUID.randomUUID().toString();
-		BookingAttribute orderBean = new BookingAttribute(order);
+		BookingAttribute bookingAttribute = new BookingAttribute(booking);
 
-		BookingRecord entry = new BookingRecord(uuid, orderBean);
-		entry.setOrderTime(System.currentTimeMillis());
+		BookingRecord entry = new BookingRecord(uuid, bookingAttribute);
+		entry.setBookingTime(System.currentTimeMillis());
 		entry.setComplete();
 
-		if (this.isOrderInRedis(uuid))
+		if (this.isBookingInRedis(uuid))
 			throw new RuntimeException("Serious UUID problem");
-		putOrderToRedis(uuid, entry);
+		putBookingToRedis(uuid, entry);
 		return uuid;
 	}
 
 	/*
-	 * This will upstartTimeDate an order it can throw NotFoundException if that uuid is
+	 * This will upstartTimeDate a booking it can throw NotFoundException if that uuid is
 	 * not present It can throw JSONException if the JSON is bad
 	 */
-	public void upstartTimeDateOrder(String uuid, String order) throws NotFoundException {
-		if (uuid == null || !isOrderInRedis(uuid)) {
+	public void upstartTimeDateBooking(String uuid, String booking) throws NotFoundException {
+		if (uuid == null || !isBookingInRedis(uuid)) {
 			throw new NotFoundException();
 		}
 
-		BookingRecord entry = getOrderFromRedis(uuid);
-		BookingAttribute orderBean = new BookingAttribute(order);
-		entry.setBean(orderBean);
+		BookingRecord entry = getBookingFromRedis(uuid);
+		BookingAttribute bookingAttribute = new BookingAttribute(booking);
+		entry.setBean(bookingAttribute);
 		entry.setComplete();
-		putOrderToRedis(uuid, entry);
+		putBookingToRedis(uuid, entry);
 
 	}
 
-	// this method returns a JSON array of all orders
+	// this method returns a JSON array of all bookings
 	// which may be empty
-	// It does not list incomplete or deleted orders
-	public String getOrders() throws JSONException {
+	// It does not list incomplete or deleted bookings
+	public String getBookings() throws JSONException {
 		JSONArray array = new JSONArray();
-		List<String> keys = getOrderIDs();
+		List<String> keys = getBookingIDs();
 
 		Iterator<String> i = keys.iterator();
 		while (i.hasNext()) {
 			String uuid = i.next();
 
 			try {
-				BookingRecord entry = getOrderFromRedis(uuid);
+				BookingRecord entry = getBookingFromRedis(uuid);
 
 				if (entry.isComplete() && !entry.isDeleted()) {
 					JSONObject href = new JSONObject();
@@ -96,62 +96,62 @@ public class BookingResource {
 
 		JSONObject json = new JSONObject();
 
-		json.put("orders", array);
+		json.put("bookings", array);
 		return json.toString(3); // indent 3 for nicer printing!
 	}
 
 	/*
-	 * This method returns NotFoundException if no order ever existed null if
-	 * the order has been deleted Otherwise the JSON
+	 * This method returns NotFoundException if no booking ever existed null if
+	 * the booking has been deleted Otherwise the JSON
 	 */
-	public String getOrder(String id) throws NotFoundException, JSONException {
-		if (!isOrderInRedis(id))
+	public String getBooking(String id) throws NotFoundException, JSONException {
+		if (!isBookingInRedis(id))
 			throw new NotFoundException();
 
-		BookingRecord entry = getOrderFromRedis(id);
+		BookingRecord entry = getBookingFromRedis(id);
 		if (entry.isDeleted())
 			return null;
 
 		else
-			return entry.getOrder().toJSON().toString();
+			return entry.getBooking().toJSON().toString();
 	}
 
 	/*
 	 * This method returns true if freshly deleted false if already deleted
 	 * NotFoundException if it never existed
 	 */
-	public boolean deleteOrder(String id) throws NotFoundException {
-		if (isOrderInRedis(id)) {
-			BookingRecord entry = getOrderFromRedis(id);
+	public boolean deleteBooking(String id) throws NotFoundException {
+		if (isBookingInRedis(id)) {
+			BookingRecord entry = getBookingFromRedis(id);
 			if (entry.isDeleted()) {
 				return false;
 			}
 			entry.delete();
-			putOrderToRedis(id, entry);
+			putBookingToRedis(id, entry);
 			return true;
 		} else {
 			throw new NotFoundException();
 		}
 	}
 
-	public void putOrderToRedis(String uuid, BookingRecord order) {
+	public void putBookingToRedis(String uuid, BookingRecord booking) {
 
 		try (Jedis jedis = pool.getResource()) {
-			jedis.set(uuid + ":complete", order.isComplete() ? "true" : "false");
-			jedis.set(uuid + ":deleted", order.isDeleted() ? "true" : "false");
-			jedis.set(uuid + ":json", order.getOrder().toString());
+			jedis.set(uuid + ":complete", booking.isComplete() ? "true" : "false");
+			jedis.set(uuid + ":deleted", booking.isDeleted() ? "true" : "false");
+			jedis.set(uuid + ":json", booking.getBooking().toString());
 		}
 	}
 
-	public BookingRecord getOrderFromRedis(String uuid) throws NotFoundException {
+	public BookingRecord getBookingFromRedis(String uuid) throws NotFoundException {
 		try (Jedis jedis = pool.getResource()) {
 			String json = jedis.get(uuid + ":json");
 			if (json == null) {
 				throw new NotFoundException();
 			}
 
-			BookingAttribute order = new BookingAttribute(json);
-			BookingRecord entry = new BookingRecord(uuid, order);
+			BookingAttribute booking = new BookingAttribute(json);
+			BookingRecord entry = new BookingRecord(uuid, booking);
 			String complete = jedis.get(uuid + ":complete");
 			String deleted = jedis.get(uuid + ":deleted");
 			if ("true".equals(complete))
@@ -162,13 +162,13 @@ public class BookingResource {
 		}
 	}
 
-	public boolean isOrderInRedis(String uuid) {
+	public boolean isBookingInRedis(String uuid) {
 		try (Jedis jedis = pool.getResource()) {
 			return jedis.exists(uuid + ":json");
 		}
 	}
 
-	public List<String> getOrderIDs() {
+	public List<String> getBookingIDs() {
 		try (Jedis jedis = pool.getResource()) {
 			// note this logic does not cope with large sets of responses
 			ScanParams params = new ScanParams();

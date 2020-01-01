@@ -37,12 +37,12 @@ public class Reservation {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createOrder(String input, @Context UriInfo uriInfo) {
+	public Response createBooking(String input, @Context UriInfo uriInfo) {
 
 		boolean success = true;
-		String orderId = null;
+		String bookingId = null;
 		try {
-			orderId = backend.createOrder(input);
+			bookingId = backend.createBooking(input);
 			// publisher.publish(input);
 		} catch (JSONException je) {
 			success = false;
@@ -53,9 +53,9 @@ public class Reservation {
 
 		if (success) {
 			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-			builder.path(orderId);
+			builder.path(bookingId);
 			try {
-				return Response.created(builder.build()).entity(backend.getOrder(orderId)).build();
+				return Response.created(builder.build()).entity(backend.getBooking(bookingId)).build();
 			} catch (IllegalArgumentException | UriBuilderException | JSONException | NotFoundException e) {
 				// something really freaky happened here
 				return Response.serverError().build();
@@ -68,11 +68,11 @@ public class Reservation {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Response upstartTimeDateOrder(String input, @PathParam("id") String id) {
+	public Response upstartTimeDateBooking(String input, @PathParam("id") String id) {
 		try {
-			backend.upstartTimeDateOrder(id, input);
+			backend.upstartTimeDateBooking(id, input);
 			// return the server's representation
-			return Response.ok(backend.getOrder(id)).build();
+			return Response.ok(backend.getBooking(id)).build();
 		} catch (JSONException je) {
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (NotFoundException nfe) {
@@ -84,26 +84,26 @@ public class Reservation {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Response getOrder(@PathParam("id") String id)
+	public Response getBooking(@PathParam("id") String id)
 	{
-		    String orderJSON;
+		    String bookingJSON;
 			try {
-				orderJSON = backend.getOrder(id);
+				bookingJSON = backend.getBooking(id);
 			} catch ( NotFoundException e) {
 				return Response.status(Status.NOT_FOUND).build();
 			}
-			if (orderJSON == null) {
+			if (bookingJSON == null) {
 				return Response.status(Status.GONE).build();
 			}
-			return Response.ok(orderJSON).build();
+			return Response.ok(bookingJSON).build();
 	
 	}
 	@DELETE
 	@Path("{id}")
-	public Response deleteOrder(@PathParam("id") String id)
+	public Response deleteBooking(@PathParam("id") String id)
 	{
 		   try {
-				boolean deleted = backend.deleteOrder(id);
+				boolean deleted = backend.deleteBooking(id);
 				if (deleted) {
 					return Response.ok().build();
 				}
@@ -118,9 +118,9 @@ public class Reservation {
 	}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllOrders()
+	public Response getAllBookings()
 	{
-		String allOrders = backend.getOrders();
-		return Response.ok().entity(allOrders).build();
+		String allBookings = backend.getBookings();
+		return Response.ok().entity(allBookings).build();
 	}
 }
