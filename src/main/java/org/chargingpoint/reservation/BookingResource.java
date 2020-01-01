@@ -15,7 +15,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
 
-public class OrderRedis {
+public class BookingResource {
 
 	public static JedisPool pool = new JedisPool(new JedisPoolConfig(),
 			System.getenv().containsKey("REDIS_HOST") ? System.getenv("REDIS_HOST") : "localhost");
@@ -24,9 +24,9 @@ public class OrderRedis {
 	/*
 	 * Instantiate the system with a new random order
 	 */
-	public OrderRedis() {
+	public BookingResource() {
 
-		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'chargingPointID':'123abc'," + "'carID':'112233',"
+		BookingRecord entry = new BookingRecord(oneuuid, new BookingAttribute("" + "{'chargingPointID':'123abc'," + "'carID':'112233',"
 				+ "'duration':'30'," + "'startTimeDate':'21/12/2019 01:30:00 PM'," + "'customerID':'1',"
 				+ "'customerFirstName':'Charlie'," + "'customerLastName':'Rose'," + "'endTimeDate':'21/12/2019 02:00:00 PM'}"));
 		entry.setComplete();
@@ -39,9 +39,9 @@ public class OrderRedis {
 	 */
 	public String createOrder(String order) {
 		String uuid = UUID.randomUUID().toString();
-		OrderBean orderBean = new OrderBean(order);
+		BookingAttribute orderBean = new BookingAttribute(order);
 
-		OrderEntry entry = new OrderEntry(uuid, orderBean);
+		BookingRecord entry = new BookingRecord(uuid, orderBean);
 		entry.setOrderTime(System.currentTimeMillis());
 		entry.setComplete();
 
@@ -60,8 +60,8 @@ public class OrderRedis {
 			throw new NotFoundException();
 		}
 
-		OrderEntry entry = getOrderFromRedis(uuid);
-		OrderBean orderBean = new OrderBean(order);
+		BookingRecord entry = getOrderFromRedis(uuid);
+		BookingAttribute orderBean = new BookingAttribute(order);
 		entry.setBean(orderBean);
 		entry.setComplete();
 		putOrderToRedis(uuid, entry);
@@ -80,7 +80,7 @@ public class OrderRedis {
 			String uuid = i.next();
 
 			try {
-				OrderEntry entry = getOrderFromRedis(uuid);
+				BookingRecord entry = getOrderFromRedis(uuid);
 
 				if (entry.isComplete() && !entry.isDeleted()) {
 					JSONObject href = new JSONObject();
@@ -108,7 +108,7 @@ public class OrderRedis {
 		if (!isOrderInRedis(id))
 			throw new NotFoundException();
 
-		OrderEntry entry = getOrderFromRedis(id);
+		BookingRecord entry = getOrderFromRedis(id);
 		if (entry.isDeleted())
 			return null;
 
@@ -122,7 +122,7 @@ public class OrderRedis {
 	 */
 	public boolean deleteOrder(String id) throws NotFoundException {
 		if (isOrderInRedis(id)) {
-			OrderEntry entry = getOrderFromRedis(id);
+			BookingRecord entry = getOrderFromRedis(id);
 			if (entry.isDeleted()) {
 				return false;
 			}
@@ -134,7 +134,7 @@ public class OrderRedis {
 		}
 	}
 
-	public void putOrderToRedis(String uuid, OrderEntry order) {
+	public void putOrderToRedis(String uuid, BookingRecord order) {
 
 		try (Jedis jedis = pool.getResource()) {
 			jedis.set(uuid + ":complete", order.isComplete() ? "true" : "false");
@@ -143,15 +143,15 @@ public class OrderRedis {
 		}
 	}
 
-	public OrderEntry getOrderFromRedis(String uuid) throws NotFoundException {
+	public BookingRecord getOrderFromRedis(String uuid) throws NotFoundException {
 		try (Jedis jedis = pool.getResource()) {
 			String json = jedis.get(uuid + ":json");
 			if (json == null) {
 				throw new NotFoundException();
 			}
 
-			OrderBean order = new OrderBean(json);
-			OrderEntry entry = new OrderEntry(uuid, order);
+			BookingAttribute order = new BookingAttribute(json);
+			BookingRecord entry = new BookingRecord(uuid, order);
 			String complete = jedis.get(uuid + ":complete");
 			String deleted = jedis.get(uuid + ":deleted");
 			if ("true".equals(complete))

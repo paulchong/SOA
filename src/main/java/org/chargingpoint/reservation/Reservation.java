@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 public class Reservation {
 
-	OrderRedis backend = new OrderRedis();
+	BookingResource backend = new BookingResource();
 	// Publish publisher = new Publish();
 
 	@POST

@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-public class OrderBean {
+public class BookingAttribute {
 	private String chargingPointID;
 	private String carID;
 	private String duration;
@@ -79,11 +79,11 @@ public class OrderBean {
 		return customerLastName;
 	}
 	
-	public OrderBean() {
+	public BookingAttribute() {
 	
 	}
 
-	public OrderBean(String json) throws JSONException {
+	public BookingAttribute(String json) throws JSONException {
 		
 			JSONObject j = new JSONObject(new JSONTokener(json));
 			this.setCustomerID( j.getString("customerID"));

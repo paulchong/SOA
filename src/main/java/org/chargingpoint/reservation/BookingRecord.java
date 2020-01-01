@@ -1,14 +1,14 @@
 package org.chargingpoint.reservation;
 
-public class OrderEntry {
+public class BookingRecord {
 	private long orderTime = 0L;
 	private String id = null;
-	private OrderBean order = null;
+	private BookingAttribute order = null;
 	private boolean complete = false;
 	private boolean deleted = false;
 	
 	
-	public OrderEntry(String uuid, OrderBean bean) {
+	public BookingRecord(String uuid, BookingAttribute bean) {
 		super();
 		this.id = uuid;
 		this.order = bean;
@@ -16,7 +16,7 @@ public class OrderEntry {
 		this.orderTime = System.currentTimeMillis();
 		
 	}
-	public OrderEntry() {
+	public BookingRecord() {
 		super();
 	}
 	
@@ -34,7 +34,7 @@ public class OrderEntry {
 	public String getID() {
 		return id;
 	}
-	public void setBean(OrderBean order) {
+	public void setBean(BookingAttribute order) {
 		this.order = order;
 	}
 
@@ -57,7 +57,7 @@ public class OrderEntry {
 		return deleted;
 	}
 
-	public OrderBean getOrder() {
+	public BookingAttribute getOrder() {
 		return order;
 	}
 
