@@ -56,10 +56,10 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerNumber","00002");
-    	map.put("date","15/05/2017");
-    	map.put("lineItem","LI0056");
-    	map.put("quantity","3");
+    	map.put("customerID","00002");
+    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+    	map.put("carID","CR123x94");
+    	map.put("duration","30");
     	map.put("chargingPointID","20200101");    	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
@@ -106,10 +106,10 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerNumber","00002");
-    	map.put("date","15/05/2017");
-    	map.put("lineItem","LI0056");
-    	map.put("quantity","3");
+    	map.put("customerID","00002");
+    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+    	map.put("carID","CR123x94");
+    	map.put("duration","30");
     	map.put("chargingPointID","20200101");    	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
@@ -136,10 +136,10 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerNumber","00002");
-    	map.put("date","15/05/2017");
-    	map.put("lineItem","LI0056");
-    	map.put("quantity","3");
+    	map.put("customerID","00002");
+    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+    	map.put("carID","CR123x94");
+    	map.put("duration","30");
     	map.put("chargingPointID","20200101");    	
     	
     	JSONObject json = new JSONObject(map);
@@ -176,10 +176,10 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerNumber","00002");
-    	map.put("date","15/05/2017");
-    	map.put("lineItem","LI0056");
-    	map.put("quantity","3");
+    	map.put("customerID","00002");
+    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+    	map.put("carID","CR123x94");
+    	map.put("duration","30");
     	map.put("chargingPointID","20200101");    	
     	
     	JSONObject json = new JSONObject(map);
@@ -190,7 +190,7 @@ public class ReservationApplicationTests {
     	
     	String location = response.getHeaderString("Location");
     	
-    	// GET existing value and then update with new
+    	// GET existing value and then upstartTimeDate with new
     	target = ClientBuilder.newClient(config).target(location);
     	response = target.request(MediaType.APPLICATION_JSON).get();
     	assertEquals(Response.Status.OK.getStatusCode(), response.getStatus()); // 200
@@ -199,10 +199,10 @@ public class ReservationApplicationTests {
     	
     	
     	String chargingPointID = jsonResponse.getString("chargingPointID");
-    	int quantity = Integer.parseInt((String)jsonResponse.get("quantity"));
-    	quantity++;
+    	int duration = Integer.parseInt((String)jsonResponse.get("duration"));
+    	duration++;
     	
-    	jsonResponse.put("quantity",Integer.toString(quantity));
+    	jsonResponse.put("duration",Integer.toString(duration));
     	
     	
     	jsonText = jsonResponse.toString();
@@ -214,10 +214,10 @@ public class ReservationApplicationTests {
     	assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
     	jsonResponse = new JSONObject(response.readEntity(String.class));
     	
-    	assertEquals( Integer.toString(quantity), jsonResponse.get("quantity"));
+    	assertEquals( Integer.toString(duration), jsonResponse.get("duration"));
     	assertEquals(chargingPointID, jsonResponse.get("chargingPointID"));
     	
-    	// validate sending incomplete or bad JSON
+    	// valistartTimeDate sending incomplete or bad JSON
     	response = target.request(MediaType.APPLICATION_JSON)
     			.put(Entity.entity("{blah}",MediaType.APPLICATION_JSON));
     	assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
@@ -234,10 +234,10 @@ public class ReservationApplicationTests {
     	
     	
     	Map<String, String> map = new HashMap<String,String>();
-    	map.put("customerNumber","00002");
-    	map.put("date","15/05/2017");
-    	map.put("lineItem","LI0056");
-    	map.put("quantity","3");
+    	map.put("customerID","00002");
+    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+    	map.put("carID","CR123x94");
+    	map.put("duration","30");
     	map.put("chargingPointID","20200101");    	
     	
     	JSONObject json = new JSONObject(map);
@@ -277,10 +277,10 @@ public class ReservationApplicationTests {
     	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("reservation");
 
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("customerNumber", "00002");
-		map.put("date", "15/05/2017");
-		map.put("lineItem", "LI0056");
-		map.put("quantity", "3");
+		map.put("customerID", "00002");
+		map.put("startTimeDate", "02/01/2020 10:30:00 AM");
+		map.put("carID", "CR123x94");
+		map.put("duration", "30");
 		map.put("chargingPointID", "20200101");
 		JSONObject json = new JSONObject(map);
 		String jsonText = json.toString();
@@ -293,7 +293,7 @@ public class ReservationApplicationTests {
 		// should be 200 OK
 		assertEquals( Status.OK.getStatusCode(), response.getStatus());
 
-		// validate our HATEOAS - try "getting" all the URIs returned as hrefs
+		// valistartTimeDate our HATEOAS - try "getting" all the URIs returned as hrefs
 		// and see we get a 200 for each.
 		json = new JSONObject(response.readEntity(String.class));
 

@@ -68,9 +68,9 @@ public class Reservation {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Response updateOrder(String input, @PathParam("id") String id) {
+	public Response upstartTimeDateOrder(String input, @PathParam("id") String id) {
 		try {
-			backend.updateOrder(id, input);
+			backend.upstartTimeDateOrder(id, input);
 			// return the server's representation
 			return Response.ok(backend.getOrder(id)).build();
 		} catch (JSONException je) {

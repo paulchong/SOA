@@ -26,8 +26,8 @@ public class OrderRedis {
 	 */
 	public OrderRedis() {
 
-		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'chargingPointID':'123abc'," + "'lineItem':'11111',"
-				+ "'quantity':'1'," + "'date':'24/7/2012'," + "'customerNumber':'1', paymentReference:''}"));
+		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'chargingPointID':'123abc'," + "'carID':'112233',"
+				+ "'duration':'30'," + "'startTimeDate':'21/12/2019 01:30:00 PM'," + "'customerID':'1', paymentReference:''}"));
 		entry.setComplete();
 		this.putOrderToRedis(oneuuid, entry);
 	}
@@ -51,10 +51,10 @@ public class OrderRedis {
 	}
 
 	/*
-	 * This will update an order it can throw NotFoundException if that uuid is
+	 * This will upstartTimeDate an order it can throw NotFoundException if that uuid is
 	 * not present It can throw JSONException if the JSON is bad
 	 */
-	public void updateOrder(String uuid, String order) throws NotFoundException {
+	public void upstartTimeDateOrder(String uuid, String order) throws NotFoundException {
 		if (uuid == null || !isOrderInRedis(uuid)) {
 			throw new NotFoundException();
 		}

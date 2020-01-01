@@ -6,10 +6,10 @@ import org.json.JSONTokener;
 
 public class OrderBean {
 	private String chargingPointID;
-	private String lineItem;
-	private String quantity;
-	private String date;
-	private String customerNumber;
+	private String carID;
+	private String duration;
+	private String startTimeDate;
+	private String customerID;
 	private String paymentReference;
 
 	
@@ -22,36 +22,36 @@ public class OrderBean {
 		this.chargingPointID = chargingPointID;
 	}
 
-	public String getLineItem() {
-		return lineItem;
+	public String getCarID() {
+		return carID;
 	}
 
-	public void setLineItem(String lineitem) {
-		this.lineItem = lineitem;
+	public void setCarID(String carID) {
+		this.carID = carID;
 	}
 
-	public String getQuantity() {
-		return quantity;
+	public String getDuration() {
+		return duration;
 	}
 
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
-	public String getDate() {
-		return date;
+	public String getStartTimeDate() {
+		return startTimeDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setStartTimeDate(String startTimeDate) {
+		this.startTimeDate = startTimeDate;
 	}
 
-	public String getCustomerNumber() {
-		return customerNumber;
+	public String getCustomerID() {
+		return customerID;
 	}
 
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
+	public void setCustomerID(String customerID) {
+		this.customerID = customerID;
 	}
 	
 	public OrderBean() {
@@ -61,11 +61,11 @@ public class OrderBean {
 	public OrderBean(String json) throws JSONException {
 		
 			JSONObject j = new JSONObject(new JSONTokener(json));
-			this.setCustomerNumber( j.getString("customerNumber"));
-			this.setDate(j.getString("date"));
-			this.setQuantity(j.getString("quantity"));
+			this.setCustomerID( j.getString("customerID"));
+			this.setStartTimeDate(j.getString("startTimeDate"));
+			this.setDuration(j.getString("duration"));
 			this.setChargingPointID(j.getString("chargingPointID"));
-			this.setLineItem(j.getString("lineItem"));
+			this.setCarID(j.getString("carID"));
 			
 		
 	}
@@ -73,10 +73,10 @@ public class OrderBean {
 	public JSONObject toJSON() {
 		JSONObject j = new JSONObject();
 		try {
-			j.put("customerNumber", this.getCustomerNumber());
-			j.put("lineItem", this.getLineItem());
-			j.put("quantity", this.getQuantity());
-			j.put("date", this.getDate());
+			j.put("customerID", this.getCustomerID());
+			j.put("carID", this.getCarID());
+			j.put("duration", this.getDuration());
+			j.put("startTimeDate", this.getStartTimeDate());
 			j.put("chargingPointID", this.getChargingPointID());
 			j.put("paymentReference", this.getPaymentReference());
 			return j;
