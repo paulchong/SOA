@@ -10,8 +10,9 @@ public class OrderBean {
 	private String duration;
 	private String startTimeDate;
 	private String customerID;
-	private String paymentReference;
-
+	private String endTimeDate;
+	private String customerFirstName;
+	private String customerLastName;
 	
 	
 	public String getChargingPointID() {
@@ -53,6 +54,30 @@ public class OrderBean {
 	public void setCustomerID(String customerID) {
 		this.customerID = customerID;
 	}
+
+	public void setEndTimeDate(String endTimeDate) {
+		this.endTimeDate = endTimeDate;
+	}
+
+	public String getEndTimeDate() {
+		return endTimeDate;
+	}
+
+	public void setCustomerFirstName(String customerFirstName) {
+		this.customerFirstName = customerFirstName;
+	}
+
+	public String getCustomerFirstName() {
+		return customerFirstName;
+	}
+
+	public void setCustomerLastName(String customerLastName) {
+		this.customerLastName = customerLastName;
+	}
+
+	public String getCustomerLastName() {
+		return customerLastName;
+	}
 	
 	public OrderBean() {
 	
@@ -66,8 +91,9 @@ public class OrderBean {
 			this.setDuration(j.getString("duration"));
 			this.setChargingPointID(j.getString("chargingPointID"));
 			this.setCarID(j.getString("carID"));
-			
-		
+			this.setEndTimeDate(j.getString("endTimeDate"));
+			this.setCustomerFirstName(j.getString("customerFirstName"));
+			this.setCustomerLastName(j.getString("customerLastName"));
 	}
 
 	public JSONObject toJSON() {
@@ -78,7 +104,9 @@ public class OrderBean {
 			j.put("duration", this.getDuration());
 			j.put("startTimeDate", this.getStartTimeDate());
 			j.put("chargingPointID", this.getChargingPointID());
-			j.put("paymentReference", this.getPaymentReference());
+			j.put("endTimeDate", this.getEndTimeDate());
+			j.put("customerFirstName", this.getCustomerFirstName());
+			j.put("customerLastName", this.getCustomerLastName());
 			return j;
 		} catch (JSONException je) {
 			je.printStackTrace();
@@ -88,14 +116,6 @@ public class OrderBean {
 
 	public String toString() {
 		return this.toJSON().toString();
-	}
-
-	public String getPaymentReference() {
-		return paymentReference;
-	}
-
-	public void setPaymentReference(String paymentReference) {
-		this.paymentReference = paymentReference;
 	}
 
 }

@@ -57,10 +57,14 @@ public class ReservationApplicationTests {
     	
     	Map<String, String> map = new HashMap<String,String>();
     	map.put("customerID","00002");
-    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
     	map.put("duration","30");
-    	map.put("chargingPointID","20200101");    	
+		map.put("chargingPointID","20200101"); 
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
+		   	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
     	
@@ -107,10 +111,13 @@ public class ReservationApplicationTests {
     	
     	Map<String, String> map = new HashMap<String,String>();
     	map.put("customerID","00002");
-    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
     	map.put("duration","30");
-    	map.put("chargingPointID","20200101");    	
+		map.put("chargingPointID","20200101");  
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
     	
@@ -119,9 +126,6 @@ public class ReservationApplicationTests {
     	
     	assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus()); //201
     	assertTrue(response.getHeaders().containsKey("Location"));
-    	
-    	
-    	
     }
     
     @Test public void TestGets_Level2() {
@@ -134,13 +138,15 @@ public class ReservationApplicationTests {
     			target(BASEURL).
     			path("reservation");
     	
-    	
     	Map<String, String> map = new HashMap<String,String>();
     	map.put("customerID","00002");
-    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
     	map.put("duration","30");
-    	map.put("chargingPointID","20200101");    	
+		map.put("chargingPointID","20200101");
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
     	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
@@ -174,13 +180,15 @@ public class ReservationApplicationTests {
     			target(BASEURL).
     			path("reservation");
     	
-    	
     	Map<String, String> map = new HashMap<String,String>();
     	map.put("customerID","00002");
-    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
     	map.put("duration","30");
-    	map.put("chargingPointID","20200101");    	
+		map.put("chargingPointID","20200101");
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
     	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
@@ -232,13 +240,15 @@ public class ReservationApplicationTests {
     			target(BASEURL).
     			path("reservation");
     	
-    	
     	Map<String, String> map = new HashMap<String,String>();
     	map.put("customerID","00002");
-    	map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("startTimeDate","02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
     	map.put("carID","CR123x94");
     	map.put("duration","30");
-    	map.put("chargingPointID","20200101");    	
+		map.put("chargingPointID","20200101"); 
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
     	
     	JSONObject json = new JSONObject(map);
     	String jsonText = json.toString();
@@ -279,9 +289,13 @@ public class ReservationApplicationTests {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("customerID", "00002");
 		map.put("startTimeDate", "02/01/2020 10:30:00 AM");
+		map.put("endTimeDate","02/01/2020 11:00:00 AM");
 		map.put("carID", "CR123x94");
 		map.put("duration", "30");
 		map.put("chargingPointID", "20200101");
+		map.put("customerFirstName","Alexander");
+		map.put("customerLastName","Hamilton");
+		
 		JSONObject json = new JSONObject(map);
 		String jsonText = json.toString();
 

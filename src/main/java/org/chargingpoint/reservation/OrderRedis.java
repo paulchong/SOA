@@ -27,7 +27,8 @@ public class OrderRedis {
 	public OrderRedis() {
 
 		OrderEntry entry = new OrderEntry(oneuuid, new OrderBean("" + "{'chargingPointID':'123abc'," + "'carID':'112233',"
-				+ "'duration':'30'," + "'startTimeDate':'21/12/2019 01:30:00 PM'," + "'customerID':'1', paymentReference:''}"));
+				+ "'duration':'30'," + "'startTimeDate':'21/12/2019 01:30:00 PM'," + "'customerID':'1',"
+				+ "'customerFirstName':'Charlie'," + "'customerLastName':'Rose'," + "'endTimeDate':'21/12/2019 02:00:00 PM'}"));
 		entry.setComplete();
 		this.putOrderToRedis(oneuuid, entry);
 	}
