@@ -7,15 +7,14 @@ public class BookingRecord {
 	private boolean complete = false;
 	private boolean deleted = false;
 	
-	
 	public BookingRecord(String uuid, BookingAttribute booking) {
 		super();
 		this.id = uuid;
 		this.booking = booking;
 		this.complete = false;
 		this.bookingTime = System.currentTimeMillis();
-		
 	}
+	
 	public BookingRecord() {
 		super();
 	}
@@ -34,7 +33,7 @@ public class BookingRecord {
 	public String getID() {
 		return id;
 	}
-	public void setBean(BookingAttribute booking) {
+	public void setAttribute(BookingAttribute booking) {
 		this.booking = booking;
 	}
 

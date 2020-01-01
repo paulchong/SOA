@@ -117,5 +117,4 @@ public class BookingAttribute {
 	public String toString() {
 		return this.toJSON().toString();
 	}
-
 }

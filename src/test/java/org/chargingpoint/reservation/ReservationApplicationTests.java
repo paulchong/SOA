@@ -281,7 +281,7 @@ public class ReservationApplicationTests {
 	@Test
 	public void testGET_Level3() {
 
-		// start by creating a new entry
+		// start by creating a new record
 		if (PROXY_URI!=null) config.property(ClientProperties.PROXY_URI, PROXY_URI);
 		config.connectorProvider(new ApacheConnectorProvider());
     	WebTarget target = ClientBuilder.newClient(config).target(BASEURL).path("reservation");

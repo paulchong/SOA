@@ -78,7 +78,6 @@ public class Reservation {
 		} catch (NotFoundException nfe) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		
 	}
 	
 	@GET
